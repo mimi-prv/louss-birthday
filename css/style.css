@@ -172,6 +172,29 @@ body[data-section="finale"] .steps { opacity: 0; visibility: hidden; transform: 
 .sound-toggle.is-on .icon--on { display: block; }
 .sound-toggle.is-on { background: var(--rose-light); }
 @media (hover: hover) { .sound-toggle:hover { transform: scale(1.06); } }
+.sound-toggle:not(.was-on) { animation: nudge 2.4s ease-in-out infinite; }
+@keyframes nudge {
+  0%, 60%, 100% { box-shadow: 0 0 0 0 rgba(158, 82, 103, .35); }
+  30% { box-shadow: 0 0 0 10px rgba(158, 82, 103, 0); }
+}
+.sound-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 2px;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: .86rem;
+  cursor: pointer;
+  transition: color .3s, background .3s;
+}
+.sound-hint span { text-decoration: underline; text-decoration-color: var(--rose); text-underline-offset: 4px; }
+@media (hover: hover) { .sound-hint:hover { color: var(--accent); background: rgba(245, 221, 227, .5); } }
+body.sound-on .sound-hint { visibility: hidden; }
 
 /* ---------- 5. Screens ---------- */
 main { position: relative; z-index: 2; }

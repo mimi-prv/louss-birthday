@@ -104,7 +104,7 @@
 
   /* ---------- Landing ---------- */
   function playIntro() {
-    const els = ['.hero__art', '.hero__kicker', '.hero__title', '.hero__subtitle', '.hero .btn'].map((s) => $(s));
+    const els = ['.hero__art', '.hero__kicker', '.hero__title', '.hero__subtitle', '.hero .btn', '.sound-hint'].map((s) => $(s));
     gsap.set(els, { autoAlpha: 0 });
     document.documentElement.classList.remove('preload');
     gsap.timeline({ delay: 0.2 })
@@ -112,7 +112,8 @@
       .fromTo(els[1], { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.8 }, '-=0.8')
       .fromTo(els[2], { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 1.3, ease: 'power3.out' }, '-=0.5')
       .fromTo(els[3], { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 1 }, '-=0.6')
-      .fromTo(els[4], { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.9 }, '-=0.5');
+      .fromTo(els[4], { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.9 }, '-=0.5')
+      .fromTo(els[5], { autoAlpha: 0 }, { autoAlpha: 1, duration: 1 }, '-=0.2');
 
     // Very light parallax on desktop
     if (!FX.REDUCED && window.matchMedia('(hover: hover)').matches) {
@@ -250,6 +251,8 @@
       btn.classList.toggle('is-on', on);
       btn.setAttribute('aria-pressed', on);
       btn.setAttribute('aria-label', on ? 'Turn music off' : 'Turn music on');
+      document.body.classList.toggle('sound-on', on);
+      if (on) btn.classList.add('was-on'); // stop the gentle nudge once she found it
     }
     async function start() {
       on = true;
@@ -292,7 +295,13 @@
 
     document.addEventListener('click', (e) => {
       const go = e.target.closest('[data-goto]');
-      if (go) showSection(go.dataset.goto);
+      if (go) {
+        if (current === 'landing' && !document.body.classList.contains('sound-on')) {
+          setTimeout(() => FX.toast(FX.fmt(CONFIG.texts.soundToast)), 1200);
+        }
+        showSection(go.dataset.goto);
+      }
+      if (e.target.closest('#soundHint')) $('#soundToggle').click();
       const step = e.target.closest('.step-btn');
       if (step && !step.disabled) showSection(step.dataset.step);
     });

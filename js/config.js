@@ -46,6 +46,8 @@ const CONFIG = {
     landingKicker: "{birthday} · a little gift",
     landingSubtitle: "I made a little something for you...",
     startButton: "Start the journey ✨",
+    soundHint: "Turn the sound on — it's part of the gift",
+    soundToast: "Psst… turn the sound on 🔊 (top right)",
     letterIntro: "Something I wanted to tell you...",
     letterOutro: "Ready for the next little surprise?",
     puzzleTitle: "Piece it together ♡",
