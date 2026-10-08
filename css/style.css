@@ -194,7 +194,7 @@ body[data-section="finale"] .steps { opacity: 0; visibility: hidden; transform: 
 }
 .sound-hint span { text-decoration: underline; text-decoration-color: var(--rose); text-underline-offset: 4px; }
 @media (hover: hover) { .sound-hint:hover { color: var(--accent); background: rgba(245, 221, 227, .5); } }
-body.sound-on .sound-hint { visibility: hidden; }
+body.sound-on .sound-hint { display: none !important; }
 
 /* ---------- 5. Screens ---------- */
 main { position: relative; z-index: 2; }
